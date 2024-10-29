@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1730204297 source:g:\c++\sandpilemodel\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<stdexcept>
+	"sandpile.h"
+	"bmp_writer.h"
+
+1730204590 g:\c++\sandpilemodel\sandpile.h
+	<string>
+
+1730197395 g:\c++\sandpilemodel\bmp_writer.h
+	<string>
+	"sandpile.h"
+
+1730204362 source:g:\c++\sandpilemodel\sandpile.cpp
+	"sandpile.h"
+	<fstream>
+	<sstream>
+	<iostream>
+
+1730204905 source:g:\c++\sandpilemodel\bmp_writer.cpp
+	"bmp_writer.h"
+	<fstream>
+	<iostream>
+
