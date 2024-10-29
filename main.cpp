@@ -26,7 +26,7 @@ void parseArguments(int argc, char* argv[], string &inputFile, string &outputDir
 
 int main(int argc, char* argv[]) {
     string inputFile, outputDir;
-    int maxIter = 5, frequency = 1;
+    int maxIter = 50, frequency = 1;
 
     try {
         parseArguments(argc, argv, inputFile, outputDir, maxIter, frequency);

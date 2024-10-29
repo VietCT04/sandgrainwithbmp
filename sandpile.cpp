@@ -10,18 +10,18 @@ SandpileModel::SandpileModel() : width(0), height(0), stable(false) {
             grid[i][j] = 0;
 }
 
-void SandpileModel::initialize(const std::string &filename) {
-    std::ifstream file(filename);
-    std::string line;
+void SandpileModel::initialize(const string &filename) {
+    ifstream file(filename);
+    string line;
     width = 0;
     height = 0;
-    while (std::getline(file, line)) {
+    while (getline(file, line)) {
         int x, y, grains;
-        std::istringstream iss(line);
+        istringstream iss(line);
         iss >> x >> y >> grains;
         grid[y][x] = grains;
-        width = std::max(width, x + 1);   // Update max width
-        height = std::max(height, y + 1); // Update max height
+        width = max(width, x + 1);   // Update max width
+        height = max(height, y + 1); // Update max height
         //cout << "Input: " << x << " " << y << " " << grains << endl;
     }
 }
