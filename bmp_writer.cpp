@@ -59,24 +59,24 @@ void BMPWriter::save(const SandpileModel &model, const std::string &outputDir, i
 
     // Write pixel data
     for (int y = height - 1; y >= 0; --y) {
-    for (int x = 0; x < width; ++x) {
-        int grains = model.getCell(x, y);
-        uint8_t* color;
+        for (int x = 0; x < width; ++x) {
+            int grains = model.getCell(y, x);
+            uint8_t* color;
 
-        // If grains >= 4, use the last color (black); otherwise, use the exact grain color
-        if (grains >= 4) {
-            color = colorMap[4];
-        } else {
-            color = colorMap[grains];
+            // If grains >= 4, use the last color (black); otherwise, use the exact grain color
+            if (grains >= 4) {
+                color = colorMap[4];
+            } else {
+                color = colorMap[grains];
+            }
+
+            // Write RGB triplet for each pixel
+            file.put(color[2]).put(color[1]).put(color[0]); // BMP format requires BGR order
         }
 
-        // Write RGB triplet for each pixel
-        file.put(color[2]).put(color[1]).put(color[0]); // BMP format requires BGR order
+        // Padding to align to a multiple of 4 bytes per row
+        for (int p = 0; p < (width % 4); ++p) file.put(0);
     }
-
-    // Padding to align to a multiple of 4 bytes per row
-    for (int p = 0; p < (width % 4); ++p) file.put(0);
-}
 
     file.close();
 }

@@ -8,39 +8,39 @@
 using namespace std;
 
 // Utility function to parse command-line arguments
-void parseArguments(int argc, char* argv[], std::string &inputFile, std::string &outputDir, int &maxIter, int &frequency) {
+void parseArguments(int argc, char* argv[], string &inputFile, string &outputDir, int &maxIter, int &frequency) {
     for (int i = 1; i < argc; i++) {
-        if (std::string(argv[i]) == "-i" || std::string(argv[i]) == "--input") {
+        if (string(argv[i]) == "-i" || string(argv[i]) == "--input") {
             inputFile = argv[++i];
-        } else if (std::string(argv[i]) == "-o" || std::string(argv[i]) == "--output") {
+        } else if (string(argv[i]) == "-o" || string(argv[i]) == "--output") {
             outputDir = argv[++i];
-        } else if (std::string(argv[i]) == "-m" || std::string(argv[i]) == "--max-iter") {
-            maxIter = std::stoi(argv[++i]);
-        } else if (std::string(argv[i]) == "-f" || std::string(argv[i]) == "--freq") {
-            frequency = std::stoi(argv[++i]);
+        } else if (string(argv[i]) == "-m" || string(argv[i]) == "--max-iter") {
+            maxIter = stoi(argv[++i]);
+        } else if (string(argv[i]) == "-f" || string(argv[i]) == "--freq") {
+            frequency = stoi(argv[++i]);
         } else {
-            throw std::invalid_argument("Invalid argument");
+            throw invalid_argument("Invalid argument");
         }
     }
 }
 
 int main(int argc, char* argv[]) {
-    std::string inputFile, outputDir;
+    string inputFile, outputDir;
     int maxIter = 5, frequency = 1;
 
     try {
         parseArguments(argc, argv, inputFile, outputDir, maxIter, frequency);
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << "\n";
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() << "\n";
         return 1;
     }
 
     SandpileModel model;
-    std::cout << "Initializing model with input file: " << inputFile << std::endl;
+    cout << "Initializing model with input file: " << inputFile << endl;
     model.initialize(inputFile);
     /*
-    std::cout << "Height: " << model.getHeight()  << std::endl;
-        std::cout << "Width: " << model.getWidth()  << std::endl;
+    cout << "Height: " << model.getHeight()  << endl;
+        cout << "Width: " << model.getWidth()  << endl;
         for (int x = 0; x < model.getHeight(); x++){
             for (int y = 0; y < model.getWidth();y++){
                 cout << model.getCell(x, y) << " ";
@@ -49,30 +49,32 @@ int main(int argc, char* argv[]) {
         }*/
     for (int i = 0; i < maxIter; i++) {
         model.update();
-        std::cout << "Iteration " << i << " completed." << std::endl;
+        cout << "Iteration " << i << " completed." << endl;
 
         if (frequency > 0 && i % frequency == 0) {
             BMPWriter::save(model, outputDir, i);
-            std::cout << "Saved BMP for iteration " << i << std::endl;
+            cout << "Saved BMP for iteration " << i << endl;
         }
 
         if (model.isStable()) {
-            std::cout << "Model reached stability at iteration " << i << std::endl;
+            cout << "Model reached stability at iteration " << i << endl;
             break;
         }
 
-        std::cout << "Height: " << model.getHeight()  << std::endl;
-        std::cout << "Width: " << model.getWidth()  << std::endl;
         /*
+        cout << "Height: " << model.getHeight()  << endl;
+        cout << "Width: " << model.getWidth()  << endl;
+
         for (int x = 0; x < model.getHeight(); x++){
             for (int y = 0; y < model.getWidth();y++){
                 cout << model.getCell(x, y) << " ";
             }
             cout << endl;
-        }*/
+        }
+        */
     }
     BMPWriter::save(model, outputDir, maxIter);
-    std::cout << "Final BMP saved." << std::endl;
+    cout << "Final BMP saved." << endl;
 
     return 0;
 }

@@ -4,9 +4,11 @@
 #include <string>
 #include "sandpile.h"
 
+using namespace std;
+
 class BMPWriter {
 public:
-    static void save(const SandpileModel &model, const std::string &outputDir, int iteration);
+    static void save(const SandpileModel &model, const string &outputDir, int iteration);
 };
 
 #endif
